@@ -180,15 +180,15 @@ myawesomemenu = {
 }
 
 idemenu = {
-    { "Idea",                      'idea' },
-    { "VS Code",               'code' },
-    { "Clion",                   'clion' },
-    { "QtCreator",        'qtcreator' },
-    { "Sublime",             'subl' },
-    { "Eclipse",             'eclipse' },
+    { "Idea",           'idea' },
+    { "VS Code",        'code' },
+    { "Clion",          'clion' },
+    { "QtCreator",      'qtcreator' },
+    { "Sublime",        'subl' },
+    { "Eclipse",        'eclipse' },
     { "LightTable",     'light' },
-    { "Atom",                     'atom' },
-    { "Blue Fish",         'bluefish' },
+    { "Atom",           'atom' },
+    { "Blue Fish",      'bluefish' },
 }
 
 toolsmenu = {
@@ -199,7 +199,7 @@ toolsmenu = {
 personalmenu = {
     { "Chrome",         'chrome'},
     { "Chromium",       'chromium'},
-    { "QQ",         'qq' },
+    { "QQ",             'qq' },
     { "wechat",         'electronic-wechat' },
     { "netease-music",  'netease-cloud-music' },
     { "Typora",         'typora' },
@@ -239,7 +239,7 @@ screen.connect_signal("property::geometry", function(s)
 end)
 
 -- a timer to change wallpapers
-wp_timeout  = 10
+wp_timeout  = 60 -- 1 min
 wp_timer = timer { timeout = wp_timeout }
 wp_timer:connect_signal("timeout", function()
  
@@ -281,13 +281,13 @@ root.buttons(my_table.join(
 globalkeys = my_table.join(
     -- Take a screenshot
     -- https://github.com/lcpz/dots/blob/master/bin/screenshot
-    awful.key({ altkey, }, "p", function() os.execute("screenshot") end,
-              {description = "take a screenshot", group = "hotkeys"}),
+    -- awful.key({ altkey, }, "p", function() os.execute("screenshot") end,
+    --           {description = "take a screenshot", group = "hotkeys"}),
 
     -- X screen locker
-    awful.key({ altkey, "Control" }, "a", function () awful.util.spawn("scrot -e 'mv $f ~/Pictures/ScreenShots/ 2>/dev/null'") end,
+    awful.key({ modkey, "Control" }, "a", function () awful.util.spawn("scrot -e 'mv $f ~/Pictures/ScreenShots/ 2>/dev/null'") end,
               {description = "screen shot", group = "hotkeys"}),
-    awful.key({ altkey, "Control" }, "l", function () awful.util.spawn(scrlocker) end,
+    awful.key({ modkey, "Control" }, "l", function () awful.util.spawn(scrlocker) end,
               {description = "lock screen", group = "hotkeys"}),
 
     -- Hotkeys
@@ -302,19 +302,19 @@ globalkeys = my_table.join(
               {description = "go back", group = "tag"}),
 
     -- Non-empty tag browsing
-    awful.key({ altkey }, "Left", function () lain.util.tag_view_nonempty(-1) end,
+    awful.key({ modkey, altkey }, "Left", function () lain.util.tag_view_nonempty(-1) end,
               {description = "view  previous nonempty", group = "tag"}),
-    awful.key({ altkey }, "Right", function () lain.util.tag_view_nonempty(1) end,
+    awful.key({ modkey, altkey }, "Right", function () lain.util.tag_view_nonempty(1) end,
               {description = "view  previous nonempty", group = "tag"}),
 
     -- Default client focus
-    awful.key({ altkey,           }, "j",
+    awful.key({ modkey,           }, "j",
         function ()
             awful.client.focus.byidx( 1)
         end,
         {description = "focus next by index", group = "client"}
     ),
-    awful.key({ altkey,           }, "k",
+    awful.key({ modkey,           }, "k",
         function ()
             awful.client.focus.byidx(-1)
         end,
@@ -322,30 +322,30 @@ globalkeys = my_table.join(
     ),
 
     -- By direction client focus
-    awful.key({ modkey }, "j",
-        function()
-            awful.client.focus.global_bydirection("down")
-            if client.focus then client.focus:raise() end
-        end,
-        {description = "focus down", group = "client"}),
-    awful.key({ modkey }, "k",
-        function()
-            awful.client.focus.global_bydirection("up")
-            if client.focus then client.focus:raise() end
-        end,
-        {description = "focus up", group = "client"}),
-    awful.key({ modkey }, "h",
-        function()
-            awful.client.focus.global_bydirection("left")
-            if client.focus then client.focus:raise() end
-        end,
-        {description = "focus left", group = "client"}),
-    awful.key({ modkey }, "l",
-        function()
-            awful.client.focus.global_bydirection("right")
-            if client.focus then client.focus:raise() end
-        end,
-        {description = "focus right", group = "client"}),
+    -- awful.key({ modkey }, "j",
+    --     function()
+    --         awful.client.focus.global_bydirection("down")
+    --         if client.focus then client.focus:raise() end
+    --     end,
+    --     {description = "focus down", group = "client"}),
+    -- awful.key({ modkey }, "k",
+    --     function()
+    --         awful.client.focus.global_bydirection("up")
+    --         if client.focus then client.focus:raise() end
+    --     end,
+    --     {description = "focus up", group = "client"}),
+    -- awful.key({ modkey }, "h",
+    --     function()
+    --         awful.client.focus.global_bydirection("left")
+    --         if client.focus then client.focus:raise() end
+    --     end,
+    --     {description = "focus left", group = "client"}),
+    -- awful.key({ modkey }, "l",
+    --     function()
+    --         awful.client.focus.global_bydirection("right")
+    --         if client.focus then client.focus:raise() end
+    --     end,
+    --     {description = "focus right", group = "client"}),
     awful.key({ modkey,           }, "w", function () awful.util.mymainmenu:show() end,
               {description = "show main menu", group = "awesome"}),
 
@@ -381,10 +381,10 @@ globalkeys = my_table.join(
         {description = "toggle wibox", group = "awesome"}),
 
     -- On the fly useless gaps change
-    awful.key({ altkey, "Control" }, "+", function () lain.util.useless_gaps_resize(1) end,
-              {description = "increment useless gaps", group = "tag"}),
-    awful.key({ altkey, "Control" }, "-", function () lain.util.useless_gaps_resize(-1) end,
-              {description = "decrement useless gaps", group = "tag"}),
+    -- awful.key({ altkey, "Control" }, "+", function () lain.util.useless_gaps_resize(1) end,
+    --           {description = "increment useless gaps", group = "tag"}),
+    -- awful.key({ altkey, "Control" }, "-", function () lain.util.useless_gaps_resize(-1) end,
+    --           {description = "decrement useless gaps", group = "tag"}),
 
     -- Dynamic tagging
     awful.key({ modkey, "Shift" }, "n", function () lain.util.add_tag() end,
@@ -406,10 +406,10 @@ globalkeys = my_table.join(
     awful.key({ modkey, "Shift"   }, "q", awesome.quit,
               {description = "quit awesome", group = "awesome"}),
 
-    awful.key({ altkey, "Shift"   }, "l",     function () awful.tag.incmwfact( 0.05)          end,
-              {description = "increase master width factor", group = "layout"}),
-    awful.key({ altkey, "Shift"   }, "h",     function () awful.tag.incmwfact(-0.05)          end,
-              {description = "decrease master width factor", group = "layout"}),
+    -- awful.key({ altkey, "Shift"   }, "l",     function () awful.tag.incmwfact( 0.05)          end,
+    --           {description = "increase master width factor", group = "layout"}),
+    -- awful.key({ altkey, "Shift"   }, "h",     function () awful.tag.incmwfact(-0.05)          end,
+    --           {description = "decrease master width factor", group = "layout"}),
     awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1, nil, true) end,
               {description = "increase the number of master clients", group = "layout"}),
     awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1, nil, true) end,
@@ -439,11 +439,11 @@ globalkeys = my_table.join(
               {description = "dropdown application", group = "launcher"}),
 
     -- Widgets popups
-    awful.key({ altkey, }, "c", function () if beautiful.cal then beautiful.cal.show(7) end end,
+    awful.key({ modkey, }, "d", function () if beautiful.cal then beautiful.cal.show(7) end end,
               {description = "show calendar", group = "widgets"}),
-    awful.key({ altkey, }, "h", function () if beautiful.fs then beautiful.fs.show(7) end end,
+    awful.key({ modkey, }, "h", function () if beautiful.fs then beautiful.fs.show(7) end end,
               {description = "show filesystem", group = "widgets"}),
-    awful.key({ altkey, }, "w", function () if beautiful.weather then beautiful.weather.show(7) end end,
+    awful.key({ modkey, }, "e", function () if beautiful.weather then beautiful.weather.show(7) end end,
               {description = "show weather", group = "widgets"}),
 
     -- Brightness
@@ -453,31 +453,31 @@ globalkeys = my_table.join(
               {description = "-10%", group = "hotkeys"}),
 
     -- ALSA volume control
-    awful.key({ altkey }, "Up",
+    awful.key({ modkey }, "Up",
         function ()
             os.execute(string.format("amixer -q set %s 1%%+", beautiful.volume.channel))
             beautiful.volume.update()
         end,
         {description = "volume up", group = "hotkeys"}),
-    awful.key({ altkey }, "Down",
+    awful.key({ modkey }, "Down",
         function ()
             os.execute(string.format("amixer -q set %s 1%%-", beautiful.volume.channel))
             beautiful.volume.update()
         end,
         {description = "volume down", group = "hotkeys"}),
-    awful.key({ altkey }, "m",
+    awful.key({ modkey }, "m",
         function ()
             os.execute(string.format("amixer -q set %s toggle", beautiful.volume.togglechannel or beautiful.volume.channel))
             beautiful.volume.update()
         end,
         {description = "toggle mute", group = "hotkeys"}),
-    awful.key({ altkey, "Control" }, "m",
+    awful.key({ modkey, "Control" }, "m",
         function ()
             os.execute(string.format("amixer -q set %s 100%%", beautiful.volume.channel))
             beautiful.volume.update()
         end,
         {description = "volume 100%", group = "hotkeys"}),
-    awful.key({ altkey, "Control" }, "0",
+    awful.key({ modkey, "Control" }, "0",
         function ()
             os.execute(string.format("amixer -q set %s 0%%", beautiful.volume.channel))
             beautiful.volume.update()
