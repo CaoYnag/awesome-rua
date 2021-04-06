@@ -17,7 +17,7 @@ local beautiful     = require("beautiful")
 local naughty       = require("naughty")
 local lain          = require("lain")
 --local menubar       = require("menubar")
-local freedesktop   = require("freedesktop")
+--local freedesktop   = require("freedesktop")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
                       require("awful.hotkeys_popup.keys")
 local my_table      = awful.util.table or gears.table -- 4.{0,1} compatibility
@@ -465,24 +465,24 @@ globalkeys = my_table.join(
             beautiful.volume.update()
         end,
         {description = "volume down", group = "hotkeys"}),
-    awful.key({ modkey }, "m",
-        function ()
-            os.execute(string.format("amixer -q set %s toggle", beautiful.volume.togglechannel or beautiful.volume.channel))
-            beautiful.volume.update()
-        end,
-        {description = "toggle mute", group = "hotkeys"}),
-    awful.key({ modkey, "Control" }, "m",
-        function ()
-            os.execute(string.format("amixer -q set %s 100%%", beautiful.volume.channel))
-            beautiful.volume.update()
-        end,
-        {description = "volume 100%", group = "hotkeys"}),
-    awful.key({ modkey, "Control" }, "0",
-        function ()
-            os.execute(string.format("amixer -q set %s 0%%", beautiful.volume.channel))
-            beautiful.volume.update()
-        end,
-        {description = "volume 0%", group = "hotkeys"}),
+    --awful.key({ modkey }, "m",
+    --    function ()
+    --        os.execute(string.format("amixer -q set %s toggle", beautiful.volume.togglechannel or beautiful.volume.channel))
+    --        beautiful.volume.update()
+    --    end,
+    --    {description = "toggle mute", group = "hotkeys"}),
+    --awful.key({ modkey, "Control" }, "m",
+    --    function ()
+    --        os.execute(string.format("amixer -q set %s 100%%", beautiful.volume.channel))
+    --        beautiful.volume.update()
+    --    end,
+    --    {description = "volume 100%", group = "hotkeys"}),
+    --awful.key({ modkey, "Control" }, "0",
+    --    function ()
+    --        os.execute(string.format("amixer -q set %s 0%%", beautiful.volume.channel))
+    --        beautiful.volume.update()
+    --    end,
+    --    {description = "volume 0%", group = "hotkeys"}),
 
 
     -- Copy primary to clipboard (terminals to gtk)
@@ -761,6 +761,8 @@ do
   'xset s 0',
   'xcompmgr',
   --'devilspie -a',
+  'clash',
+  'nutstore'
   }
   
   for _,i in pairs(cmdss) do

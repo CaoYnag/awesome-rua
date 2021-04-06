@@ -18,7 +18,7 @@ function scan_dir(path, filter)
         filter = function(s) return true end
     end
     for filename in popen('ls -a "'..path..'"'):lines() do
-        if filter(filename) then
+if filter(filename) then
             i = i + 1
             t[i] = filename
         end
