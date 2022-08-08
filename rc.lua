@@ -97,7 +97,7 @@ local scrlocker    = "betterlockscreen -l"
 -- instanciate the control
 
 awful.util.terminal = terminal
-awful.util.tagnames = { "1", "2", "3", "4", "5", "6" }
+awful.util.tagnames = { "shell", "code", "web", "test", "media", "doc" }
 awful.layout.layouts = {
     awful.layout.suit.floating,
     awful.layout.suit.tile,
@@ -285,7 +285,7 @@ globalkeys = my_table.join(
     --           {description = "take a screenshot", group = "hotkeys"}),
 
     -- X screen locker
-    awful.key({ modkey, "Control" }, "a", function () awful.util.spawn("scrot -e 'mv $f ~/Pictures/ScreenShots/ 2>/dev/null'") end,
+    awful.key({ modkey, "Control" }, "a", function () awful.util.spawn("scrot -s -e 'mv $f ~/Pictures/ScreenShots/ 2>/dev/null'") end,
               {description = "screen shot", group = "hotkeys"}),
     awful.key({ modkey, "Control" }, "l", function () awful.util.spawn(scrlocker) end,
               {description = "lock screen", group = "hotkeys"}),
@@ -453,24 +453,24 @@ globalkeys = my_table.join(
               {description = "-10%", group = "hotkeys"}),
 
     -- ALSA volume control
-    awful.key({ modkey }, "Up",
+    awful.key({ }, "XF86AudioRaiseVolume",
         function ()
             os.execute(string.format("amixer -q set %s 1%%+", beautiful.volume.channel))
             beautiful.volume.update()
         end,
         {description = "volume up", group = "hotkeys"}),
-    awful.key({ modkey }, "Down",
+    awful.key({ }, "XF86AudioLowerVolume",
         function ()
             os.execute(string.format("amixer -q set %s 1%%-", beautiful.volume.channel))
             beautiful.volume.update()
         end,
         {description = "volume down", group = "hotkeys"}),
-    --awful.key({ modkey }, "m",
-    --    function ()
-    --        os.execute(string.format("amixer -q set %s toggle", beautiful.volume.togglechannel or beautiful.volume.channel))
-    --        beautiful.volume.update()
-    --    end,
-    --    {description = "toggle mute", group = "hotkeys"}),
+    awful.key({ }, "XF86AudioMute",
+        function ()
+            os.execute(string.format("amixer -q set %s toggle", beautiful.volume.togglechannel or beautiful.volume.channel))
+            beautiful.volume.update()
+        end,
+        {description = "toggle mute", group = "hotkeys"}),
     --awful.key({ modkey, "Control" }, "m",
     --    function ()
     --        os.execute(string.format("amixer -q set %s 100%%", beautiful.volume.channel))
@@ -668,8 +668,8 @@ awful.rules.rules = {
       properties = { titlebars_enabled = false } },
 
     -- Set Firefox to always map on the first tag on screen 1.
-    { rule = { class = "Firefox" },
-      properties = { screen = 1, tag = awful.util.tagnames[1] } },
+    -- { rule = { class = "Firefox" },
+    --  properties = { screen = 1, tag = awful.util.tagnames[1] } },
 
     { rule = { class = "Gimp", role = "gimp-image-window" },
           properties = { maximized = true } },

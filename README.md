@@ -1,4 +1,4 @@
-# awesome-rua
+# my awesome wm configuration
 
 a awesome wm theme with some custom settings.
 
